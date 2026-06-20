@@ -8,7 +8,7 @@ export function HabitForm(){
         focus-visible:ring-violet-500 "
         placeholder="New habit..."
     />
-    <Button className="bg-red-500">Add Habit</Button>
+    <Button className="rounded-lg px-4 py-2 font-bold">Add Habit</Button>
   </form>
   )
 
