@@ -1,23 +1,14 @@
-import {Children, createContext, type ReactNode} from "react"
-import { useState , useContext} from "react";
+import {useState, type ReactNode} from "react"
 import { isSameDay,} from "date-fns";
-export type Habit = {id: string; name: string; completions: Date[]}
+import { HabitContext } from "./useHabits"
+import type { Habit } from "./useHabits"
 
-type Context ={
-    
-    habits: Habit[]
-    addHabit: (name: string) => void
-    deleteHabit: (id: string) => void
-    toggleHabit: (id: string, date: Date) => void
-}
 
 type HabitProviderProps = {
     children: ReactNode
 
 }
 
-
-export const HabitContext = createContext<null | Context>(null)
 
 export function HabitProvider({children}: HabitProviderProps) {
       //<h1 className="text-Green-1200" >Habbit Tracker</h1>
@@ -49,11 +40,10 @@ export function HabitProvider({children}: HabitProviderProps) {
 
 
 
-    return <HabitContext value= {{habits, addHabit,  toggleHabit,deleteHabit,}}>{children} </HabitContext>
+   <HabitContext.Provider
+      value={{ habits, addHabit, toggleHabit, deleteHabit }}
+    >
+      {children}
+    </HabitContext.Provider>
 }
 
-export function useHabits(){
- const habitContext = useContext(HabitContext)
- if (habitContext === null) {throw new Error("useHabits must be used within a HabitProvider")}
-    return habitContext
-}
