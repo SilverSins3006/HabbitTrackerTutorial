@@ -1,5 +1,9 @@
 import{ createContext,useContext} from "react"
-export type Habit = {id: string; name: string; completions: Date[]}
+export type Habit = {
+    id: string; 
+    name: string; 
+    completions: Date[]
+}
 
 type Context ={
     

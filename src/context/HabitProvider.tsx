@@ -39,11 +39,12 @@ export function HabitProvider({children}: HabitProviderProps) {
       }
 
 
-
+return (
    <HabitContext.Provider
       value={{ habits, addHabit, toggleHabit, deleteHabit }}
     >
       {children}
     </HabitContext.Provider>
+)
 }
 
