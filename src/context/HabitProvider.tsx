@@ -1,7 +1,8 @@
-import {useState, type ReactNode} from "react"
+import { type ReactNode} from "react"
 import { isSameDay,} from "date-fns";
 import { HabitContext } from "./useHabits"
 import type { Habit } from "./useHabits"
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 
 type HabitProviderProps = {
@@ -12,7 +13,7 @@ type HabitProviderProps = {
 
 export function HabitProvider({children}: HabitProviderProps) {
       //<h1 className="text-Green-1200" >Habbit Tracker</h1>
-      const [habits, setHabits] = useState<Habit[]>([])
+      const [habits, setHabits] = useLocalStorage<Habit[]>("habits", [])
     
       function addHabit(name: string) {
         setHabits(curr => [...curr, {id: crypto.randomUUID(), name, completions: [] }])
