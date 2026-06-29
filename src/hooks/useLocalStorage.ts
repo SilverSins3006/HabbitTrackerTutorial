@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { parseISO } from "date-fns"
 
 export function useLocalStorage<T>(key: string, initialValue: T) {
   const [storedValue, setStoredValue] = useState<T>(() => {
@@ -6,7 +7,7 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
       const item = localStorage.getItem(key)
       if (item == null) return initialValue
 
-      return JSON.parse(item)
+      return JSON.parse(item, dateReviver)
     } catch {
       return initialValue
     }
@@ -17,4 +18,10 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
   }, [key, storedValue])
 
   return [storedValue, setStoredValue] as const
+}
+function dateReviver(key: string, value: unknown){
+    if (typeof value === "string" && key === "date") {
+        return parseISO(value)
+} 
+return value
 }
